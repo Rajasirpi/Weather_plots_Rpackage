@@ -4,6 +4,8 @@
 
 With this Rwplots package. It can be possible plot different weather plots like time series of cyclone tracks and  spatial distribution of precipitations and 9 graphs (lines plot, boxplots and/or histograms) of the daily, monthly, annual and/or seasonal time series.
 
+### please download the zip file and install it with your rstudio and execute it.
+
 ## 1 Introduction
 Tropical cyclones, which are responsible for 2% of the world's yearly precipitation and between 4% and 5% of it in August and September at the height of the Northern Hemisphere cyclone season, are significant contributors to the general circulation of the atmosphere. Tropical cyclones, which produce severe rainfall, extremely damaging storm surges like tsunamis, and coastal flooding, are one of the biggest climatic dangers. The heaviest rain is produced by large, slowly moving, and unsheared tropical cyclones. Since analyzing precipitation data along with cyclone data offers us additional information about the intensity of the rainfall, storms and rainfall are therefore connected. R's ability to offer maps of data in the same computing environment that the data analysis is being done, as well as read, modify, and analyze data with explicitly spatial coordinate information, is one very helpful feature for studying geographical data.
 
