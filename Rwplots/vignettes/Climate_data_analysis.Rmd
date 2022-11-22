@@ -1,0 +1,112 @@
+---
+title: "Climate Data Analysis"
+author: "Rajasirpi Subramaniyan"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Climate Data Analysis}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+## 1 Introduction
+Tropical cyclones, which are responsible for 2% of the world's yearly precipitation and between 4% and 5% of it in August and September at the height of the Northern Hemisphere cyclone season, are significant contributors to the general circulation of the atmosphere. Tropical cyclones, which produce severe rainfall, extremely damaging storm surges like tsunamis, and coastal flooding, are one of the biggest climatic dangers. The heaviest rain is produced by large, slowly moving, and unsheared tropical cyclones. Since analyzing precipitation data along with cyclone data offers us additional information about the intensity of the rainfall, storms and rainfall are therefore connected. R's ability to offer maps of data in the same computing environment that the data analysis is being done, as well as read, modify, and analyze data with explicitly spatial coordinate information, is one very helpful feature for studying geographical data.
+
+## 2 Data description
+
+### 2.1 Installation
+Install the package and load the library, which contains data and functions.
+```{r setup}
+library(Rwplots)
+```
+
+### 2.2 Setting up the environment
+This package contains three demo file which can be used to demonstrate of the created function. Those demo files can be loaded using system.file(). Each file consists of the required columns/values which is used as input for the function. You can look the samples of those data data below: 
+```{r}
+data= system.file("extdata","Tracks.csv", package = "Rwplots")
+head(read.csv(data))
+```
+```{r}
+data= system.file("extdata","Prec_data.csv", package = "Rwplots")
+head(read.csv(data))
+```
+```{r}
+library(ncdf4)
+data= system.file("extdata","Rainfall.nc", package = "Rwplots")
+nc_val = nc_open(data)
+nc_val
+```
+
+## 3 Results and discussion
+
+In this section, I have demonstrated all the function which i have created to analyze the precipitation data which gives plots and data frames as results.
+
+### 3.1 Annual precipitation plot
+The function "Precip_plot" can be used to plot annual precipitation plot with the values from the netcdf files. The arguments required for this function are input .nc file which contains rainfall, latitude and longitude values in it. The resulting plot will looks like large when you see it in the plots tab so click zoom to see it in extract size.
+```{r}
+data = system.file("extdata","Rainfall.nc", package = "Rwplots")
+precip_plot(data,"RAINFALL","LONGITUDE", "LATITUDE")
+```
+
+### 3.2 Yearwise cyclones tracks plotting
+The function "trackbyyear" can be used to plot cyclone tracks for particular year. You can also use an external data in this function which should have all the required columns(latitude,longitude,wind speed, cyclone names and years). 
+```{r}
+data= system.file("extdata","Tracks.csv", package = "Rwplots")
+trackbyyear(data,"lat","lon", "kts", "name","year",2018,"India")
+```
+
+### 3.3 Time series plot of cyclone tracks
+
+The function "ts_tracks" can be used to plot  time series of cyclone tracks for the total number of years according to the given data and also uses different kind of plotting methods rather the one which is used in the above function. You can also use an external data in this function which should have all the required columns(latitude,longitude,wind speed,cyclone names and years). 
+
+```{r}
+data= system.file("extdata","Tracks.csv", package = "Rwplots")
+ts_tracks(data,"lon","lat","name","year")
+```
+
+
+### 3.4 Daily, monthly and annual time series plots
+The function "amd_plots" can be used to plot time series plots for rainfall data Daily/monthly/annual/seasonal rainfall values of the time series given as input. Depending on the value of daily, monthly, annual and/or seasonal time series plots, boxplots and histograms are produced. Data should have date and precipitation values which is used as inputs.
+```{r}
+data= system.file("extdata","Prec_data.csv", package = "Rwplots")
+par(mar = rep(2, 4))
+amd_plots(data,"time","Rainfall")
+```
+
+### 3.5 Matrix plot
+This function "matrix_plot" is used to convert values to matrix and plot the precipitation values.
+```{r}
+data= system.file("extdata","Prec_data.csv", package = "Rwplots")
+matrix_plot(data,"time","Rainfall")
+```
+
+### 3.6 Daily to monthly rainfall conversion
+The function "d2m" can be used to convert Daily rainfall values to monthly values.
+```{r}
+data= system.file("extdata","Prec_data.csv", package = "Rwplots")
+d2m(data,"time","Rainfall")
+```
+
+### 3.7 Daily to quarterly rainfall conversion
+The function "d2q" can be used to convert Daily rainfall values to quarterly values i.e total of four month values .
+```{r}
+data= system.file("extdata","Prec_data.csv", package = "Rwplots")
+d2q(data,"time","Rainfall")
+```
+
+### 3.8 Daily to annual rainfall conversion
+The function "d2a" can be used to convert Daily rainfall values to annual values.
+```{r}
+data= system.file("extdata","Prec_data.csv", package = "Rwplots")
+d2a(data,"time","Rainfall")
+```
+
+
+
